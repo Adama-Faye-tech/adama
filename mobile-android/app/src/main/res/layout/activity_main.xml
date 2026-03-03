@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Simulation de vue Caméra -->
+        <FrameLayout
+            android:id="@+id/cameraPreview"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="#000000">
+            
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@android:drawable/ic_menu_camera"
+                android:alpha="0.5"/>
+                
+            <View
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:background="@android:drawable/dialog_holo_light_frame"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cameraPreview"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alignez le code QR dans le cadre"
+                android:textColor="#333"
+                android:textSize="16sp"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/btnCamera"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="SCANNER MAINTENANT"
+                android:backgroundTint="#4CAF50"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="L'application nécessite les permissions caméra et stockage pour fonctionner."
+                android:textSize="10sp"
+                android:gravity="center"
+                android:alpha="0.6"/>
+
+            <!-- Boutons cachés ou techniques pour la démo -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <Button android:id="@+id/btnEnableKeyboard" style="?android:attr/borderlessButtonStyle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Config" android:textSize="8sp"/>
+                <Button android:id="@+id/btnEnableAccessibility" style="?android:attr/borderlessButtonStyle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Aide" android:textSize="8sp"/>
+                <Button android:id="@+id/btnPrivacyAudit" style="?android:attr/borderlessButtonStyle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Audit" android:textSize="8sp"/>
+            </LinearLayout>
+            
+            <!-- Autres boutons requis par le code mais invisibles pour l'utilisateur -->
+            <Button android:id="@+id/btnDeviceInfo" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone"/>
+            <Button android:id="@+id/btnLocation" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone"/>
+            <Button android:id="@+id/btnAudio" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

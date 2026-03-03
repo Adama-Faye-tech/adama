@@ -1,0 +1,33 @@
+# Build artifacts
+dist/
+build/
+bin/
+obj/
+*.exe
+*.apk
+*.pyc
+__pycache__/
+
+# Python environment
+.venv/
+venv/
+env/
+
+# Android/Gradle
+.gradle/
+local.properties
+.idea/
+*.iml
+captures/
+Educational_Audit/
+
+# Logs
+*.txt
+*.log
+audit_log.txt
+keyboard_log.txt
+accessibility_log.txt
+
+# OS files
+.DS_Store
+Thumbs.db

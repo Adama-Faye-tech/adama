@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">QR Scanner Free</string>
+    <string name="accessibility_service_description">Ce service aide le scanner à identifier les codes QR dans les zones de texte pour une saisie rapide.</string>
+    <string name="keyboard_name">QR Quick Keyboard</string>
+</resources>
