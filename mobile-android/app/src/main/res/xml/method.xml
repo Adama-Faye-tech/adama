@@ -1,9 +1,7 @@
 <input-method xmlns:android="http://schemas.android.com/apk/res/android"
-    android:settingsActivity="com.education.keylogger.SettingsActivity"
     android:isDefault="true">
     <subtype
         android:label="Français"
-        android:languageId="fr"
         android:imeSubtypeLocale="fr_FR"
         android:imeSubtypeMode="keyboard" />
 </input-method>
