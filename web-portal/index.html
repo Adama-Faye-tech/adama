@@ -735,44 +735,54 @@
 
     <div class="pages-wrapper">
         <!-- PAGE 1 -->
-        <section class="page-1">
-            <div class="leak-tag">FUITE CONFIDENTIELLE – MARS 2026</div>
-            <h1 class="hero-title">CARTE GOD TIER</h1>
-            <div class="hero-subtitle">LAMINE YAMAL</div>
-            <div class="hero-rating">
-                <span class="number">110</span>
-                <span class="label">
-                    <strong>GOD TIER</strong>
-                    EPIC – Niveau jamais atteint
-                </span>
-            </div>
-            <div
-                style="width: 77%; max-width: 800px; margin: 0 auto 30px auto; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); border: 2px solid var(--gold);">
-                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
-                        src="https://www.youtube.com/embed/ZcRzrHPVCCU?si=FeRSrymAHH1q_nqK&autoplay=1&mute=1"
-                        title="YouTube video player"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
+        <section class="page-1" style="position: relative; overflow: hidden; color: white;">
+            <!-- ARRIÈRE-PLAN VIDÉO -->
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+                <iframe
+                    style="width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: none; pointer-events: none;"
+                    src="https://www.youtube-nocookie.com/embed/ZcRzrHPVCCU?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=ZcRzrHPVCCU&modestbranding=1"
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+                <div
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 10, 15, 0.75);">
                 </div>
             </div>
 
-            <p class="hero-desc">
-                Une <strong>information exclusive</strong> traverse la communauté <span
-                    class="highlight">eFootball</span>.
-                Des fichiers des prochaines mises à jour de <strong>Konami</strong> ont révélé l'existence possible
-                d'une carte totalement <span class="highlight">hors norme</span> : <br><br>
-                <strong>Lamine Yamal</strong> pourrait recevoir une note de <span class="highlight">110</span> —
-                la première carte <em>'God Tier'</em> Epic, un niveau <strong>jamais atteint</strong> dans l'histoire du
-                jeu.
-                Imaginez : la vitesse, le dribble et la précision d'un joueur boosté <strong>au maximum</strong> par
-                l'algorithme ! ⚡🔥
-            </p>
-            <div class="scroll-hint" onclick="document.querySelector('.page-2').scrollIntoView({behavior:'smooth'})">
-                <span>Voir la carte légendaire</span>
-                <svg viewBox="0 0 24 24">
-                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z" />
-                </svg>
+            <!-- CONTENU (77%) -->
+            <div
+                style="width: 77%; max-width: 800px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
+                <div class="leak-tag">FUITE CONFIDENTIELLE – MARS 2026</div>
+                <h1 class="hero-title">CARTE GOD TIER</h1>
+                <div class="hero-subtitle">LAMINE YAMAL</div>
+                <div class="hero-rating">
+                    <span class="number">110</span>
+                    <span class="label">
+                        <strong>GOD TIER</strong>
+                        EPIC – Niveau jamais atteint
+                    </span>
+                </div>
+
+                <p class="hero-desc"
+                    style="margin: 0 auto 40px auto; background: rgba(0, 0, 0, 0.4); padding: 25px; border-radius: 12px; border: 1px solid rgba(255, 215, 0, 0.2); backdrop-filter: blur(5px);">
+                    Une <strong>information exclusive</strong> traverse la communauté <span
+                        class="highlight">eFootball</span>.
+                    Des fichiers des prochaines mises à jour de <strong>Konami</strong> ont révélé l'existence possible
+                    d'une carte totalement <span class="highlight">hors norme</span> : <br><br>
+                    <strong>Lamine Yamal</strong> pourrait recevoir une note de <span class="highlight">110</span> —
+                    la première carte <em>'God Tier'</em> Epic, un niveau <strong>jamais atteint</strong> dans
+                    l'histoire du jeu.
+                    Imaginez : la vitesse, le dribble et la précision d'un joueur boosté <strong>au maximum</strong> par
+                    l'algorithme ! ⚡🔥
+                </p>
+
+                <div class="scroll-hint"
+                    onclick="document.querySelector('.page-2').scrollIntoView({behavior:'smooth'})">
+                    <span>Voir la carte légendaire</span>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z" />
+                    </svg>
+                </div>
             </div>
         </section>
 
